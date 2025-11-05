@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "doc-storage"
+  default = "docmanager"
 }
 
 variable "env" {
