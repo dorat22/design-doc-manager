@@ -10,10 +10,6 @@ permissions:
   contents: read
   id-token: write
 
-defaults:
-  run:
-    working-directory: ./dev
-    
 jobs:
   terraform:
     name: 'Terraform'
@@ -24,6 +20,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: dev
 
     steps:
     # Checkout the repository to the GitHub Actions runner
