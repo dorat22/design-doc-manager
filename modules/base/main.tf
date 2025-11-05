@@ -1,11 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
-resource "random_id" "bucket" {
-  byte_length = 8
-}
-
 resource "aws_s3_bucket" "bucket" {
   bucket_prefix = "${var.project}-${var.env}-bucket"
   tags = {
