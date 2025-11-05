@@ -1,9 +1,7 @@
 name: Python Package using Conda
 
 on:
-  push:
-    paths:
-    - lambda/app.py
+  workflow_call:
 
 jobs:
   build-linux:
