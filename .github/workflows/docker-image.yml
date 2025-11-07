@@ -3,13 +3,27 @@ name: Docker Image CI
 on:
   workflow_call:
 
+env:
+  IMAGE_NAME: 423408880404.dkr.ecr.us-east-1.amazonaws.com/docmanager-dev-repo
+
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v5.1.0
+      with:
+        role-to-assume: arn:aws:iam::423408880404:role/GitHubAction-AssumeRoleWithAction
+        aws-region: us-east-1
+    - name: Push to ECR
+      id: ecr
+      uses: jwalton/gh-ecr-push@v2
+      with:
+        region: us-east-1
+        image: $IMAGE_NAME
