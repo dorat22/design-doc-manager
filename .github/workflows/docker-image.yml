@@ -21,7 +21,7 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::423408880404:role/GitHubAction-AssumeRoleWithAction
         aws-region: us-east-1
-    - name: Push to ECR
+    - name: Push to ECR # TODO(dor): Use my own ECR push action
       id: ecr
       uses: jwalton/gh-ecr-push@v2
       with:
