@@ -2,6 +2,7 @@ name: Docker Image CI
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: 423408880404.dkr.ecr.us-east-1.amazonaws.com/docmanager-dev-repo
