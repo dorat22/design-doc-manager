@@ -6,6 +6,7 @@ on:
 
 env:
   IMAGE_NAME: 423408880404.dkr.ecr.us-east-1.amazonaws.com/docmanager-dev-repo
+  AWS_REGION: us-east-1
 
 permissions:
   contents: read
@@ -30,9 +31,7 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::423408880404:role/GitHubAction-AssumeRoleWithAction
         aws-region: us-east-1
-    - name: Push to ECR # TODO(dor): Use my own ECR push action
-      id: ecr
-      uses: jwalton/gh-ecr-push@v2
-      with:
-        region: us-east-1
-        image: $IMAGE_NAME
+    - name: Login to ECR
+      run: aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $IMAGE_NAME
+    - name: Push container image
+      run: docker push $IMAGE_NAME
